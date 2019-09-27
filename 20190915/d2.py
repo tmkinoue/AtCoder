@@ -1,17 +1,17 @@
 # coding: utf-8
-import numpy as np
+import heapq
 
 n, m = map(int, input().split())
-l = [int(n) for n in input().split()]
-arr = np.asarray(l)
+l = [ -1 * int(n) for n in input().split()]
 
-for j in range(m):
-    i = np.argmax(l)
-    l[i] = int(l[i]/2)
-    if l[i] <= 0:
-        np.delete(i)
-        if len(l) == 0:
-            break
+heapq.heapify(l)
 
-print(sum(l))
+for i in range(m):
+    a = heapq.heappop(l) * (-1)
+    a = int(a/2)
+    if a != 0:
+        heapq.heappush(l, a * (-1))
+    if len(l) == 0:
+        break
 
+print(sum(l) * (-1))
